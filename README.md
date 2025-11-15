@@ -1,5 +1,3 @@
-# offdroid_update_manager
-Offdroid - Cross Platform Update Manager for UNIX Systems
 # OFFDROID
 
 ```
@@ -131,9 +129,22 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 This project is open source and available under the [MIT License](LICENSE).
 
+## Support the Project
+
+If you find OFFDROID useful and want to support its development, consider buying me a coffee! ☕
+
+**Bitcoin Donation Address:**
+```
+bc1q40tcmyk8rtp5vyg4ykgexa0upcvd08l99dq4z0
+```
+
+Every donation helps keep this project alive and motivates further development! 🚀
+
 ## Author
 
 Created with ❤️ by [retoro-sen](https://github.com/retoro-sen)
+
+**Contact:** retoro-sen@protonmail.ch
 
 ## Support
 
