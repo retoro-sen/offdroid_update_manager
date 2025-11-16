@@ -1,0 +1,16 @@
+# OFFDROID - Requirements
+# Cross-Platform Update Manager
+# Python 3.6+
+
+# Note: This project uses only Python standard library modules
+# No external dependencies are required for core functionality
+
+# Standard library modules used:
+# - shutil (system utilities)
+# - subprocess (process management)
+# - re (regular expressions)
+# - datetime (date and time operations)
+
+# If you want to add optional features in the future, you can add them here:
+# colorama==0.4.6  # For cross-platform colored terminal output
+# rich==13.7.0     # For enhanced terminal formatting
