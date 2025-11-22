@@ -225,45 +225,52 @@
 
         .robot-icon {
             display: inline-block;
-            width: 48px;
-            height: 48px;
+            width: 64px;
+            height: 64px;
             margin: 20px auto;
-            background: linear-gradient(135deg, #64b5f6 0%, #5c9fd6 100%);
-            border-radius: 8px;
             position: relative;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
+        /* Antenna */
         .robot-icon::before {
             content: '';
             position: absolute;
-            top: 2px;
+            top: 0;
             left: 50%;
             transform: translateX(-50%);
             width: 8px;
-            height: 6px;
+            height: 8px;
             background: #ffd54f;
-            border-radius: 2px;
+            border-radius: 1px;
         }
 
+        /* Head */
         .robot-icon::after {
             content: '';
             position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 32px;
-            height: 20px;
-            background: #5c9fd6;
+            top: 8px;
+            left: 8px;
+            width: 48px;
+            height: 24px;
+            background: #64b5f6;
+            border: 2px solid #5c9fd6;
             border-radius: 4px;
             box-shadow: 
-                -8px 6px 0 4px white,
-                8px 6px 0 4px white,
-                0 15px 0 0 #4a8bc2,
-                -10px 18px 0 2px #5c9fd6,
-                10px 18px 0 2px #5c9fd6,
-                -6px 32px 0 4px #5c9fd6,
-                6px 32px 0 4px #5c9fd6;
+                /* Eyes */
+                -12px 6px 0 0 white,
+                12px 6px 0 0 white,
+                /* Body */
+                0 28px 0 -2px #64b5f6,
+                0 30px 0 0 #5c9fd6,
+                /* Arms */
+                -26px 32px 0 -4px #64b5f6,
+                26px 32px 0 -4px #64b5f6,
+                /* Legs */
+                -10px 48px 0 -6px #64b5f6,
+                10px 48px 0 -6px #64b5f6,
+                /* Feet */
+                -12px 56px 0 -4px #5c9fd6,
+                12px 56px 0 -4px #5c9fd6;
         }
 
         .screenshot {
