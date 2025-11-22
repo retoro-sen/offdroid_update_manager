@@ -40,7 +40,24 @@ A smart, cross-platform system update manager that automatically detects your op
 - One of the supported package managers installed
 - Sudo privileges (except for Homebrew on macOS)
 
-### Setup
+### Quick Setup (Recommended) 🆕
+
+Run the automated setup script that installs dependencies, creates a pixel robot icon, and sets up desktop shortcuts:
+
+```bash
+git clone https://github.com/retoro-sen/offdroid_update_manager.git
+cd offdroid_update_manager
+python3 setup.py
+```
+
+The setup script will:
+- ✅ Check Python version compatibility
+- ✅ Install all required dependencies automatically
+- ✅ Create a custom pixel robot icon 🤖
+- ✅ Set up desktop shortcuts for your OS (Linux/macOS/Windows)
+- ✅ Make the script executable on Unix systems
+
+### Manual Setup
 
 1. Clone the repository:
 ```bash
