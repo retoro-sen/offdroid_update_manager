@@ -259,6 +259,35 @@
             height: 100%;
         }
 
+        /* Pupils centered by default */
+        .easter-egg-robot .pupil-left {
+            transition: transform 0.3s ease;
+        }
+
+        .easter-egg-robot .pupil-right {
+            transition: transform 0.3s ease;
+        }
+
+        /* Smile hidden by default, mouth closed */
+        .easter-egg-robot .smile {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .easter-egg-robot .mouth-closed {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        /* On hover: smile appears, closed mouth disappears */
+        .easter-egg-robot:hover .smile {
+            opacity: 1;
+        }
+
+        .easter-egg-robot:hover .mouth-closed {
+            opacity: 0;
+        }
+
         .easter-egg-message {
             position: fixed;
             bottom: 80px;
@@ -544,12 +573,15 @@ Installing updates...
             <rect x="24" y="18" width="4" height="4" fill="white"/>
             <rect x="36" y="18" width="4" height="4" fill="white"/>
             
-            <!-- Eye pupils -->
-            <rect x="25" y="19" width="2" height="2" fill="#764ba2"/>
-            <rect x="37" y="19" width="2" height="2" fill="#764ba2"/>
+            <!-- Eye pupils (centered) -->
+            <rect class="pupil-left" x="25" y="20" width="2" height="2" fill="#764ba2"/>
+            <rect class="pupil-right" x="37" y="20" width="2" height="2" fill="#764ba2"/>
             
-            <!-- Smile -->
-            <rect x="26" y="26" width="12" height="2" fill="white"/>
+            <!-- Mouth closed (default) -->
+            <rect class="mouth-closed" x="28" y="27" width="8" height="2" fill="#764ba2"/>
+            
+            <!-- Smile (appears on hover) -->
+            <rect class="smile" x="26" y="26" width="12" height="2" fill="white"/>
             
             <!-- Body -->
             <rect x="18" y="34" width="28" height="18" fill="#667eea"/>
