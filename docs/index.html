@@ -234,6 +234,70 @@
             line-height: 1.4;
         }
 
+        /* Hidden Easter Egg Robot */
+        .easter-egg-robot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            z-index: 1000;
+        }
+
+        .easter-egg-robot:hover {
+            opacity: 1;
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .easter-egg-robot::before {
+            content: '🤖';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 28px;
+        }
+
+        .easter-egg-message {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: white;
+            color: #667eea;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+            max-width: 250px;
+            font-size: 0.9em;
+        }
+
+        .easter-egg-message.show {
+            opacity: 1;
+        }
+
+        .easter-egg-message::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            right: 20px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid white;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2em;
@@ -249,6 +313,15 @@
 
             .ascii-art {
                 font-size: 10px;
+            }
+
+            .easter-egg-robot {
+                width: 40px;
+                height: 40px;
+            }
+
+            .easter-egg-robot::before {
+                font-size: 24px;
             }
         }
     </style>
@@ -469,5 +542,46 @@ Installing updates...
             <p style="margin-top: 10px; opacity: 0.8;">Licensed under MIT License | Free & Open Source</p>
         </footer>
     </div>
+
+    <!-- Easter Egg: Hidden Robot -->
+    <div class="easter-egg-robot" onclick="toggleEasterEgg()"></div>
+    <div class="easter-egg-message" id="easterEggMessage">
+        <strong>🤖 You found me!</strong><br>
+        I'm the OFFDROID mascot! Click me again to see the desktop icon!
+    </div>
+
+    <script>
+        let clickCount = 0;
+        const messages = [
+            "🤖 You found me!<br>I'm the OFFDROID mascot!",
+            "💜 I'm purple like the website!<br>Pretty cool, right?",
+            "🎨 I also appear as your desktop icon when you install OFFDROID!",
+            "✨ Thanks for exploring!<br>Now go update your system! 😄"
+        ];
+
+        function toggleEasterEgg() {
+            const messageDiv = document.getElementById('easterEggMessage');
+            
+            if (!messageDiv.classList.contains('show')) {
+                messageDiv.classList.add('show');
+                messageDiv.innerHTML = messages[0];
+            } else {
+                clickCount = (clickCount + 1) % messages.length;
+                messageDiv.innerHTML = messages[clickCount];
+            }
+
+            // Hide after 5 seconds
+            setTimeout(() => {
+                messageDiv.classList.remove('show');
+            }, 5000);
+        }
+
+        // Hide message when clicking elsewhere
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.easter-egg-robot')) {
+                document.getElementById('easterEggMessage').classList.remove('show');
+            }
+        });
+    </script>
 </body>
 </html>
