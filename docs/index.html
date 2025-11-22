@@ -223,6 +223,49 @@
             opacity: 0.8;
         }
 
+        .robot-icon {
+            display: inline-block;
+            width: 48px;
+            height: 48px;
+            margin: 20px auto;
+            background: linear-gradient(135deg, #64b5f6 0%, #5c9fd6 100%);
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .robot-icon::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 6px;
+            background: #ffd54f;
+            border-radius: 2px;
+        }
+
+        .robot-icon::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 20px;
+            background: #5c9fd6;
+            border-radius: 4px;
+            box-shadow: 
+                -8px 6px 0 4px white,
+                8px 6px 0 4px white,
+                0 15px 0 0 #4a8bc2,
+                -10px 18px 0 2px #5c9fd6,
+                10px 18px 0 2px #5c9fd6,
+                -6px 32px 0 4px #5c9fd6,
+                6px 32px 0 4px #5c9fd6;
+        }
+
         .screenshot {
             background: #1e1e1e;
             color: #00ff00;
@@ -281,6 +324,31 @@
                     Tired of remembering different update commands for different systems? 
                     OFFDROID automatically detects your OS and handles everything for you.
                 </p>
+            </section>
+
+            <section style="background: linear-gradient(135deg, #e8f4f8 0%, #d4e7f4 100%); padding: 40px; border-radius: 20px; margin: 40px 0;">
+                <h2 style="margin-bottom: 30px;">🆕 New: Auto-Update Feature</h2>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <p style="font-size: 1.2em; line-height: 1.8; color: #333; text-align: left;">
+                        OFFDROID now <strong>checks for updates automatically</strong> every time you run it! 
+                        When a new version is available, you'll be notified with the release notes and can 
+                        download and install the update with a single command.
+                    </p>
+                    <div style="background: white; padding: 30px; border-radius: 15px; margin: 30px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <h3 style="color: #667eea; margin-bottom: 20px; text-align: left;">✨ Features:</h3>
+                        <ul style="text-align: left; line-height: 2; color: #555; font-size: 1.1em;">
+                            <li>🔍 <strong>Automatic version check</strong> on startup</li>
+                            <li>📝 <strong>Release notes display</strong> for new versions</li>
+                            <li>⬇️ <strong>One-click download</strong> and installation</li>
+                            <li>💾 <strong>Automatic backup</strong> of your current version</li>
+                            <li>📊 <strong>Progress indicator</strong> during download</li>
+                            <li>🛡️ <strong>Safe rollback</strong> if something goes wrong</li>
+                        </ul>
+                    </div>
+                    <p style="text-align: center; font-style: italic; color: #666; margin-top: 20px;">
+                        Never miss an update again - OFFDROID keeps itself up to date! 🚀
+                    </p>
+                </div>
             </section>
 
             <section class="features">
@@ -439,7 +507,9 @@ Installing updates...
         </div>
 
         <footer>
-            <p>Made with ❤️ by <a href="https://github.com/retoro-sen">retoro-sen</a></p>
+            <div class="robot-icon"></div>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.7;">Your friendly update robot 🤖</p>
+            <p style="margin-top: 20px;">Made with ❤️ by <a href="https://github.com/retoro-sen">retoro-sen</a></p>
             <p style="margin-top: 10px;">📧 Contact: <a href="mailto:retoro-sen@protonmail.ch">retoro-sen@protonmail.ch</a></p>
             <p style="margin-top: 10px; opacity: 0.8;">Licensed under MIT License | Free & Open Source</p>
         </footer>
