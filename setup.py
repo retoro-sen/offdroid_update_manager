@@ -76,20 +76,20 @@ def create_icon_image():
         img = Image.new('RGBA', (size, size), (0, 0, 0, 0))
         draw = ImageDraw.Draw(img)
         
-        # Simple color palette
-        robot_blue = (66, 133, 244)      # Google Blue
-        robot_dark = (51, 103, 214)      # Darker blue
+        # Color palette matching website gradient (purple theme)
+        robot_purple = (102, 126, 234)    # #667eea from website
+        robot_dark = (118, 75, 162)       # #764ba2 from website
         white = (255, 255, 255)
-        antenna_yellow = (251, 188, 5)   # Yellow
+        antenna_light = (140, 150, 240)   # Lighter purple for antenna
         
         # Draw simple robot - centered and symmetrical
         
-        # Antenna (top center)
-        draw.rectangle([28, 8, 36, 14], fill=antenna_yellow)
-        draw.ellipse([26, 4, 38, 10], fill=antenna_yellow)
+        # Antenna (small and subtle - just a thin line with small tip)
+        draw.rectangle([31, 8, 33, 14], fill=antenna_light)  # Thin vertical line
+        draw.ellipse([29, 6, 35, 10], fill=antenna_light)    # Small round tip
         
         # Head (rounded rectangle)
-        draw.rectangle([20, 16, 44, 32], fill=robot_blue)
+        draw.rectangle([20, 16, 44, 32], fill=robot_purple)
         draw.rectangle([20, 16, 44, 18], fill=robot_dark)  # Top edge
         
         # Eyes (simple squares)
@@ -104,19 +104,19 @@ def create_icon_image():
         draw.rectangle([26, 28, 38, 30], fill=white)
         
         # Body (larger rectangle)
-        draw.rectangle([18, 34, 46, 52], fill=robot_blue)
+        draw.rectangle([18, 34, 46, 52], fill=robot_purple)
         draw.rectangle([18, 34, 46, 36], fill=robot_dark)  # Top edge
         
         # Chest indicator (simple rectangle)
         draw.rectangle([28, 40, 36, 46], fill=robot_dark)
         
         # Arms (simple rectangles)
-        draw.rectangle([12, 36, 16, 48], fill=robot_blue)  # Left arm
-        draw.rectangle([48, 36, 52, 48], fill=robot_blue)  # Right arm
+        draw.rectangle([12, 36, 16, 48], fill=robot_purple)  # Left arm
+        draw.rectangle([48, 36, 52, 48], fill=robot_purple)  # Right arm
         
         # Legs (simple rectangles)
-        draw.rectangle([22, 52, 30, 60], fill=robot_blue)  # Left leg
-        draw.rectangle([34, 52, 42, 60], fill=robot_blue)  # Right leg
+        draw.rectangle([22, 52, 30, 60], fill=robot_purple)  # Left leg
+        draw.rectangle([34, 52, 42, 60], fill=robot_purple)  # Right leg
         
         # Feet (small rectangles at bottom)
         draw.rectangle([20, 60, 30, 62], fill=robot_dark)  # Left foot
