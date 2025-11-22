@@ -21,6 +21,7 @@ A smart, cross-platform system update manager that automatically detects your op
 🌍 **Cross-Platform Support** - Works on multiple operating systems  
 🔒 **Safe Updates** - Asks for confirmation before installing  
 📊 **Update Statistics** - Displays count of updated packages  
+🔄 **Auto-Update** - Checks GitHub for new OFFDROID versions and updates itself  
 
 ## Supported Package Managers
 
@@ -119,11 +120,12 @@ Installing updates...
 
 ## How It Works
 
-1. **Detection**: Scans your system for available package managers
-2. **Confirmation**: Asks for user permission before updating
-3. **Update**: Runs the appropriate update commands for your system
-4. **Parsing**: Captures and parses the package manager output
-5. **Report**: Displays a clean list of all updated packages
+1. **Self-Update Check**: Checks GitHub for newer versions (can be updated automatically)
+2. **Detection**: Scans your system for available package managers
+3. **Confirmation**: Asks for user permission before updating
+4. **Update**: Runs the appropriate update commands for your system
+5. **Parsing**: Captures and parses the package manager output
+6. **Report**: Displays a clean list of all updated packages
 
 ## Requirements
 

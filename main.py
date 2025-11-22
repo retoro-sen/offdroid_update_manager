@@ -1,9 +1,18 @@
 import shutil
 import subprocess
 import re
+import os
+import sys
+import urllib.request
+import json
+import tempfile
+import zipfile
 from datetime import datetime
+from pathlib import Path
 
 __version__ = "1.1.0"
+GITHUB_REPO = "retoro-sen/offdroid_update_manager"
+GITHUB_API_URL = f"https://api.github.com/repos/{GITHUB_REPO}/releases/latest"
 
 def print_banner():
     """Display the offdroid banner"""
@@ -20,8 +29,148 @@ def print_banner():
     """
     print(banner)
 
+def check_for_updates():
+    """Check GitHub for newer version and offer to update"""
+    try:
+        print("🔍 Checking for OFFDROID updates...")
+        
+        # Fetch latest release info from GitHub
+        req = urllib.request.Request(GITHUB_API_URL)
+        req.add_header('User-Agent', 'OFFDROID-Update-Checker')
+        
+        with urllib.request.urlopen(req, timeout=5) as response:
+            data = json.loads(response.read().decode())
+            
+        latest_version = data.get('tag_name', '').lstrip('v')
+        release_notes = data.get('body', 'No release notes available.')
+        download_url = data.get('zipball_url', '')
+        
+        if not latest_version:
+            print("ℹ️  Could not determine latest version")
+            return
+        
+        # Compare versions
+        def version_tuple(v):
+            return tuple(map(int, (v.split("."))))
+        
+        current = version_tuple(__version__)
+        latest = version_tuple(latest_version)
+        
+        if latest > current:
+            print(f"\n🎉 New version available: v{latest_version} (current: v{__version__})")
+            print(f"\n📝 Release Notes:\n{release_notes[:300]}...")
+            
+            ans = input("\n⬇️  Do you want to download and install the update? (yes/no): ").strip().lower()
+            
+            if ans == "yes":
+                download_and_install_update(download_url, latest_version)
+            else:
+                print("ℹ️  Update skipped. You can update later by running this script again.")
+        else:
+            print(f"✅ You're running the latest version (v{__version__})")
+            
+    except urllib.error.URLError:
+        print("⚠️  Could not check for updates (no internet connection)")
+    except Exception as e:
+        print(f"⚠️  Could not check for updates: {e}")
+
+def download_and_install_update(download_url, version):
+    """Download and install the latest version"""
+    try:
+        print(f"\n📥 Downloading version {version}...")
+        
+        # Get current script directory
+        script_dir = Path(__file__).parent.resolve()
+        
+        # Download to temporary file
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.zip') as tmp_file:
+            tmp_path = tmp_file.name
+            
+            req = urllib.request.Request(download_url)
+            req.add_header('User-Agent', 'OFFDROID-Updater')
+            
+            with urllib.request.urlopen(req, timeout=30) as response:
+                total_size = int(response.headers.get('content-length', 0))
+                block_size = 8192
+                downloaded = 0
+                
+                while True:
+                    buffer = response.read(block_size)
+                    if not buffer:
+                        break
+                    tmp_file.write(buffer)
+                    downloaded += len(buffer)
+                    
+                    if total_size > 0:
+                        percent = (downloaded / total_size) * 100
+                        print(f"\rProgress: {percent:.1f}% ({downloaded}/{total_size} bytes)", end='')
+        
+        print("\n✅ Download complete!")
+        print("📦 Installing update...")
+        
+        # Extract zip file
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            with zipfile.ZipFile(tmp_path, 'r') as zip_ref:
+                zip_ref.extractall(tmp_dir)
+            
+            # Find the extracted directory (GitHub creates a subdirectory)
+            extracted_dirs = [d for d in Path(tmp_dir).iterdir() if d.is_dir()]
+            if not extracted_dirs:
+                print("❌ Could not find extracted files")
+                return
+            
+            source_dir = extracted_dirs[0]
+            
+            # Backup current files
+            backup_dir = script_dir / f"backup_v{__version__}"
+            backup_dir.mkdir(exist_ok=True)
+            
+            files_to_update = ['main.py', 'setup.py', 'README.md', 'requirements.txt']
+            
+            for file in files_to_update:
+                src_file = script_dir / file
+                if src_file.exists():
+                    shutil.copy2(src_file, backup_dir / file)
+            
+            print(f"💾 Backup created: {backup_dir}")
+            
+            # Copy new files
+            for file in files_to_update:
+                src_file = source_dir / file
+                dst_file = script_dir / file
+                if src_file.exists():
+                    shutil.copy2(src_file, dst_file)
+                    print(f"✅ Updated: {file}")
+            
+            # Copy docs directory if it exists
+            src_docs = source_dir / 'docs'
+            dst_docs = script_dir / 'docs'
+            if src_docs.exists():
+                if dst_docs.exists():
+                    shutil.rmtree(dst_docs)
+                shutil.copytree(src_docs, dst_docs)
+                print("✅ Updated: docs/")
+        
+        # Cleanup
+        os.unlink(tmp_path)
+        
+        print(f"\n🎉 Successfully updated to version {version}!")
+        print("🔄 Please restart OFFDROID to use the new version.")
+        print(f"\n💡 Your old files are backed up in: {backup_dir}")
+        
+        sys.exit(0)
+        
+    except Exception as e:
+        print(f"\n❌ Update failed: {e}")
+        print("💡 You can manually download the update from:")
+        print(f"   https://github.com/{GITHUB_REPO}/releases/latest")
+
 print_banner()
-print("🤖 Detecting operating system and package manager...")
+
+# Check for updates before running main functionality
+check_for_updates()
+
+print("\n🤖 Detecting operating system and package manager...")
 
 def parse_update_output(pm, output):
     """Parse package manager output to extract updated packages"""
