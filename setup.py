@@ -71,52 +71,56 @@ def create_icon_image():
         # Try to use PIL/Pillow if available
         from PIL import Image, ImageDraw
         
-        # Create 64x64 pixel icon
+        # Create 64x64 pixel icon with transparent background
         size = 64
         img = Image.new('RGBA', (size, size), (0, 0, 0, 0))
         draw = ImageDraw.Draw(img)
         
-        # Colors
-        robot_body = (100, 149, 237)  # Cornflower blue
-        robot_dark = (70, 119, 207)   # Darker blue
-        eye_color = (255, 255, 255)   # White
-        antenna = (255, 200, 0)        # Gold
+        # Simple color palette
+        robot_blue = (66, 133, 244)      # Google Blue
+        robot_dark = (51, 103, 214)      # Darker blue
+        white = (255, 255, 255)
+        antenna_yellow = (251, 188, 5)   # Yellow
         
-        # Draw pixel robot
-        # Antenna
-        draw.rectangle([28, 4, 36, 12], fill=antenna)
+        # Draw simple robot - centered and symmetrical
         
-        # Head
-        draw.rectangle([16, 12, 48, 32], fill=robot_body)
-        draw.rectangle([16, 12, 48, 14], fill=robot_dark)  # Top edge
+        # Antenna (top center)
+        draw.rectangle([28, 8, 36, 14], fill=antenna_yellow)
+        draw.ellipse([26, 4, 38, 10], fill=antenna_yellow)
         
-        # Eyes
-        draw.rectangle([20, 18, 26, 24], fill=eye_color)
-        draw.rectangle([38, 18, 44, 24], fill=eye_color)
-        draw.ellipse([22, 20, 24, 22], fill=(0, 0, 0))  # Pupils
-        draw.ellipse([40, 20, 42, 22], fill=(0, 0, 0))
+        # Head (rounded rectangle)
+        draw.rectangle([20, 16, 44, 32], fill=robot_blue)
+        draw.rectangle([20, 16, 44, 18], fill=robot_dark)  # Top edge
         
-        # Mouth
-        draw.rectangle([24, 26, 40, 28], fill=robot_dark)
+        # Eyes (simple squares)
+        draw.rectangle([24, 20, 28, 24], fill=white)
+        draw.rectangle([36, 20, 40, 24], fill=white)
         
-        # Body
-        draw.rectangle([12, 32, 52, 52], fill=robot_body)
-        draw.rectangle([12, 32, 52, 34], fill=robot_dark)  # Top edge
+        # Eye pupils (small dots)
+        draw.rectangle([25, 21, 27, 23], fill=robot_dark)
+        draw.rectangle([37, 21, 39, 23], fill=robot_dark)
         
-        # Chest panel
-        draw.rectangle([22, 36, 42, 46], fill=robot_dark)
+        # Smile
+        draw.rectangle([26, 28, 38, 30], fill=white)
         
-        # Arms
-        draw.rectangle([6, 36, 12, 48], fill=robot_body)
-        draw.rectangle([52, 36, 58, 48], fill=robot_body)
+        # Body (larger rectangle)
+        draw.rectangle([18, 34, 46, 52], fill=robot_blue)
+        draw.rectangle([18, 34, 46, 36], fill=robot_dark)  # Top edge
         
-        # Legs
-        draw.rectangle([18, 52, 28, 60], fill=robot_body)
-        draw.rectangle([36, 52, 46, 60], fill=robot_body)
+        # Chest indicator (simple rectangle)
+        draw.rectangle([28, 40, 36, 46], fill=robot_dark)
         
-        # Feet
-        draw.rectangle([14, 60, 28, 64], fill=robot_dark)
-        draw.rectangle([36, 60, 50, 64], fill=robot_dark)
+        # Arms (simple rectangles)
+        draw.rectangle([12, 36, 16, 48], fill=robot_blue)  # Left arm
+        draw.rectangle([48, 36, 52, 48], fill=robot_blue)  # Right arm
+        
+        # Legs (simple rectangles)
+        draw.rectangle([22, 52, 30, 60], fill=robot_blue)  # Left leg
+        draw.rectangle([34, 52, 42, 60], fill=robot_blue)  # Right leg
+        
+        # Feet (small rectangles at bottom)
+        draw.rectangle([20, 60, 30, 62], fill=robot_dark)  # Left foot
+        draw.rectangle([34, 60, 44, 62], fill=robot_dark)  # Right foot
         
         icon_path = Path(__file__).parent / "offdroid_icon.png"
         img.save(icon_path)
