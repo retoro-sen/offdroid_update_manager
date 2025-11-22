@@ -223,56 +223,6 @@
             opacity: 0.8;
         }
 
-        .robot-icon {
-            display: inline-block;
-            width: 64px;
-            height: 64px;
-            margin: 20px auto;
-            position: relative;
-        }
-
-        /* Antenna */
-        .robot-icon::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 8px;
-            height: 8px;
-            background: #ffd54f;
-            border-radius: 1px;
-        }
-
-        /* Head */
-        .robot-icon::after {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            width: 48px;
-            height: 24px;
-            background: #64b5f6;
-            border: 2px solid #5c9fd6;
-            border-radius: 4px;
-            box-shadow: 
-                /* Eyes */
-                -12px 6px 0 0 white,
-                12px 6px 0 0 white,
-                /* Body */
-                0 28px 0 -2px #64b5f6,
-                0 30px 0 0 #5c9fd6,
-                /* Arms */
-                -26px 32px 0 -4px #64b5f6,
-                26px 32px 0 -4px #64b5f6,
-                /* Legs */
-                -10px 48px 0 -6px #64b5f6,
-                10px 48px 0 -6px #64b5f6,
-                /* Feet */
-                -12px 56px 0 -4px #5c9fd6,
-                12px 56px 0 -4px #5c9fd6;
-        }
-
         .screenshot {
             background: #1e1e1e;
             color: #00ff00;
@@ -514,9 +464,7 @@ Installing updates...
         </div>
 
         <footer>
-            <div class="robot-icon"></div>
-            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.7;">Your friendly update robot 🤖</p>
-            <p style="margin-top: 20px;">Made with ❤️ by <a href="https://github.com/retoro-sen">retoro-sen</a></p>
+            <p>Made with ❤️ by <a href="https://github.com/retoro-sen">retoro-sen</a></p>
             <p style="margin-top: 10px;">📧 Contact: <a href="mailto:retoro-sen@protonmail.ch">retoro-sen@protonmail.ch</a></p>
             <p style="margin-top: 10px; opacity: 0.8;">Licensed under MIT License | Free & Open Source</p>
         </footer>
