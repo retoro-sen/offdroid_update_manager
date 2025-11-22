@@ -80,16 +80,11 @@ def create_icon_image():
         robot_purple = (102, 126, 234)    # #667eea from website
         robot_dark = (118, 75, 162)       # #764ba2 from website
         white = (255, 255, 255)
-        antenna_light = (140, 150, 240)   # Lighter purple for antenna
         
-        # Draw simple robot - centered and symmetrical
-        
-        # Antenna (small and subtle - just a thin line with small tip)
-        draw.rectangle([31, 8, 33, 14], fill=antenna_light)  # Thin vertical line
-        draw.ellipse([29, 6, 35, 10], fill=antenna_light)    # Small round tip
+        # Draw simple robot - centered and symmetrical (no antenna)
         
         # Head (rounded rectangle)
-        draw.rectangle([20, 16, 44, 32], fill=robot_purple)
+        draw.rectangle([20, 14, 44, 32], fill=robot_purple)
         draw.rectangle([20, 16, 44, 18], fill=robot_dark)  # Top edge
         
         # Eyes (simple squares)
