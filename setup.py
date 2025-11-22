@@ -148,8 +148,13 @@ def create_desktop_shortcut(icon_path=None):
     
     try:
         if system == "Linux":
-            # Create .desktop file for Linux
+            # Remove old desktop file and icon to force refresh
             desktop_file = Path.home() / ".local" / "share" / "applications" / "offdroid.desktop"
+            if desktop_file.exists():
+                print("🔄 Removing old desktop entry for refresh...")
+                desktop_file.unlink()
+            
+            # Create .desktop file for Linux
             desktop_file.parent.mkdir(parents=True, exist_ok=True)
             
             with open(desktop_file, 'w') as f:
@@ -167,6 +172,30 @@ def create_desktop_shortcut(icon_path=None):
             
             os.chmod(desktop_file, 0o755)
             print(f"✅ Desktop entry created: {desktop_file}")
+            
+            # Update desktop database to refresh icon cache
+            try:
+                subprocess.run(["update-desktop-database", 
+                              str(desktop_file.parent)], 
+                              check=False, capture_output=True)
+                print("✅ Desktop database updated")
+            except Exception:
+                pass
+            
+            # Try to update icon cache
+            try:
+                icon_dirs = [
+                    Path.home() / ".local" / "share" / "icons",
+                    Path.home() / ".icons"
+                ]
+                for icon_dir in icon_dirs:
+                    if icon_dir.exists():
+                        subprocess.run(["gtk-update-icon-cache", "-f", "-t", 
+                                      str(icon_dir)], 
+                                      check=False, capture_output=True)
+                print("✅ Icon cache updated")
+            except Exception:
+                pass
             
         elif system == "Darwin":  # macOS
             # Create app bundle or alias
@@ -193,6 +222,10 @@ def create_desktop_shortcut(icon_path=None):
                 desktop = winshell.desktop()
                 shortcut_path = os.path.join(desktop, "OFFDROID.lnk")
                 
+                # Remove old shortcut
+                if os.path.exists(shortcut_path):
+                    os.unlink(shortcut_path)
+                
                 shell = Dispatch('WScript.Shell')
                 shortcut = shell.CreateShortCut(shortcut_path)
                 shortcut.TargetPath = sys.executable
@@ -207,6 +240,9 @@ def create_desktop_shortcut(icon_path=None):
             except ImportError:
                 # Fallback: Create batch file
                 batch_file = Path.home() / "Desktop" / "OFFDROID.bat"
+                if batch_file.exists():
+                    batch_file.unlink()
+                    
                 with open(batch_file, 'w') as f:
                     f.write("@echo off\n")
                     f.write(f'cd /d "{script_path.parent}"\n')
